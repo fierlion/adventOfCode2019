@@ -73,7 +73,7 @@ func getWirePath(wire []Path) map[string]int {
   wirePath := map[string]int{}
   wireX := 0
   wireY := 0
-  steps := -1 
+  steps := 0 
   // for each point in wire update x/y points and add the string to the set  
   for i:=0; i<len(wire); i++ {
     thisPath := wire[i]
@@ -81,33 +81,33 @@ func getWirePath(wire []Path) map[string]int {
       case U:
         endWire := wireY + thisPath.Distance
         for j:=wireY;j<endWire;j++ {
-          steps += 1
           pathString := strconv.Itoa(wireX) + "|" + strconv.Itoa(j)
           wirePath[pathString] = steps
+          steps += 1
         }
         wireY += thisPath.Distance
       case D:
         endWire := wireY - thisPath.Distance
         for j:=wireY;j>endWire;j-- {
-          steps += 1
           pathString := strconv.Itoa(wireX) + "|" + strconv.Itoa(j)
           wirePath[pathString] = steps 
+          steps += 1
         }
         wireY -= thisPath.Distance
       case R:
         endWire := wireX + thisPath.Distance
         for j:=wireX;j<endWire;j++ {
-          steps += 1
           pathString := strconv.Itoa(j) + "|" + strconv.Itoa(wireY)
           wirePath[pathString] = steps 
+          steps += 1
         }
         wireX += thisPath.Distance
       case L:
         endWire := wireX - thisPath.Distance
         for j:=wireX;j>endWire;j-- {
-          steps += 1
           pathString := strconv.Itoa(j) + "|" + strconv.Itoa(wireY)
           wirePath[pathString] = steps 
+          steps += 1
         }
         wireX -= thisPath.Distance 
     }
